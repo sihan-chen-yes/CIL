@@ -86,7 +86,7 @@ predictor = MultiModalPredictor(
 predictor.fit(
     train_data=train_data,
     # tuning_data=val_data,
-    time_limit=3600, # seconds
+    time_limit=5000, # seconds
 )
 
 """Under the hood, we use [LoRA](https://arxiv.org/abs/2106.09685) for efficient fine-tuning. Note that, without hyperparameter customization, the huge SAM serves as the default model, which requires efficient fine-tuning in many cases.

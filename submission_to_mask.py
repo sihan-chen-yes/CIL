@@ -1,7 +1,11 @@
 #!/usr/bin/python
 import os
 import sys
-import Image
+# import Image
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 import math
 import matplotlib.image as mpimg
 import numpy as np
