@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 download_dir = './road_segmentation'
-
+load = True
 import pandas as pd
 import os
 dataset_path = download_dir
@@ -73,21 +73,26 @@ Initialize a new predictor and fit it with the train and validation data.
 
 from autogluon.multimodal import MultiModalPredictor
 import uuid
-save_path = f"./tmp/{uuid.uuid4().hex}-automm_semantic_seg"
-predictor = MultiModalPredictor(
-    problem_type="semantic_segmentation",
-    label="label",
-     hyperparameters={
-            "model.sam.checkpoint_name": "facebook/sam-vit-base",
-        },
-    # num_classes=1,
-    path=save_path,
-)
-predictor.fit(
-    train_data=train_data,
-    # tuning_data=val_data,
-    time_limit=5000, # seconds
-)
+id = "168a09ff805a4fc4b0e559b675e8832a"
+save_path = f"./tmp/{id}-automm_semantic_seg"
+if not load:
+    predictor = MultiModalPredictor(
+        problem_type="semantic_segmentation",
+        label="label",
+         hyperparameters={
+                "model.sam.checkpoint_name": "facebook/sam-vit-base",
+            },
+        # num_classes=1,
+        path=save_path,
+    )
+    predictor.fit(
+        train_data=train_data,
+        # tuning_data=val_data,
+        time_limit=5000, # seconds
+    )
+else:
+    predictor = MultiModalPredictor.load(save_path)
+    print("loaded predictor")
 
 """Under the hood, we use [LoRA](https://arxiv.org/abs/2106.09685) for efficient fine-tuning. Note that, without hyperparameter customization, the huge SAM serves as the default model, which requires efficient fine-tuning in many cases.
 
@@ -107,9 +112,11 @@ predictions = predictor.predict({'image': test_images})
 import numpy as np
 import matplotlib.pyplot as plt
 dir_path = './road_segmentation/test/groundtruth'
+
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
     print(f"Directory {dir_path} created.")
+
 
 for i in range(len(predictions)):
     binary_mask = np.array(predictions[i], dtype=np.uint8) * 255
