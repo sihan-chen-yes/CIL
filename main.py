@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 download_dir = './road_segmentation'
-load = True
+load = False
 import pandas as pd
 import os
 dataset_path = download_dir
@@ -73,8 +73,11 @@ Initialize a new predictor and fit it with the train and validation data.
 
 from autogluon.multimodal import MultiModalPredictor
 import uuid
-id = "168a09ff805a4fc4b0e559b675e8832a"
-save_path = f"./tmp/{id}-automm_semantic_seg"
+from sklearn.model_selection import train_test_split
+# id = "168a09ff805a4fc4b0e559b675e8832a"
+# save_path = f"./tmp/{id}-automm_semantic_seg"
+save_path = f"./tmp/{uuid.uuid4().hex}-automm_semantic_seg"
+
 if not load:
     predictor = MultiModalPredictor(
         problem_type="semantic_segmentation",
@@ -84,11 +87,35 @@ if not load:
             },
         # num_classes=1,
         path=save_path,
+        presets="best_quality",
     )
+
+    # hyperparameter_tune_kwargs = {
+    #     'num_trials': 20,
+    #     'scheduler': 'local',
+    #     'searcher': 'auto'
+    # }
+
+    # hyperparameters = {
+    #     # 'epochs': 50,
+    #     # 'batch_size': 16,
+    #     'lr': 0.001,
+    #     'early_stop_patience': 10,
+    #     'early_stop_min_delta': 0.0001,
+    #     'early_stop_baseline': None,
+    #     'early_stop_max_value': None
+    # }
+
+    # hold out a part of training set as validation set
+    _, val_data = train_test_split(train_data, test_size=0.2, random_state=42)
+
     predictor.fit(
         train_data=train_data,
-        # tuning_data=val_data,
-        time_limit=5000, # seconds
+        tuning_data=val_data,
+        # time_limit=3600, # seconds
+        # HPO
+        presets="best_quality",
+        # hyperparameter_tune_kwargs=hyperparameter_tune_kwargs,
     )
 else:
     predictor = MultiModalPredictor.load(save_path)

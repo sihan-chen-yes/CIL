@@ -41,11 +41,15 @@ for i in range(len(image_files)):
     # 2 classes
     d = dcrf.DenseCRF2D(image.shape[1], image.shape[0], 2)
 
-    unary = unary_from_labels(label, 2, gt_prob=0.8, zero_unsure=False)
+    unary = unary_from_labels(label, 2, gt_prob=0.6, zero_unsure=False)
     d.setUnaryEnergy(unary)
 
     # bilateral energy
+    # TODO
     # smoothing item
+    # compat 1~10
+    # sdims 2~10
+    # bilateral_schan 5~15
     pairwise_gaussian = create_pairwise_gaussian(sdims=(3, 3), shape=image.shape[:2])
     d.addPairwiseEnergy(pairwise_gaussian, compat=2)
 

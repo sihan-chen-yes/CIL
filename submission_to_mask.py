@@ -1,58 +1,35 @@
-#!/usr/bin/python
-import os
-import sys
-# import Image
-try:
-    from PIL import Image
-except ImportError:
-    import Image
-import math
-import matplotlib.image as mpimg
 import numpy as np
+import pandas as pd
+from PIL import Image
+import os
 
-label_file = 'dummy_submission.csv'
+csv_file = "dummy_submission.csv"
+df = pd.read_csv(csv_file)
 
-h = 16
-w = h
-imgwidth = int(math.ceil((600.0/w))*w)
-imgheight = int(math.ceil((600.0/h))*h)
-nc = 3
+images = {}
 
-# Convert an array of binary labels to a uint8
-def binary_to_uint8(img):
-    rimg = (img * 255).round().astype(np.uint8)
-    return rimg
+for index, row in df.iterrows():
+    if index == 0:
+        continue
+    parts = row['id'].split('_')
+    img_number = int(parts[0])
+    col = int(parts[1])
+    row_num = int(parts[2])
+    label = int(row['prediction'])
 
-def reconstruct_from_labels(image_id):
-    im = np.zeros((imgwidth, imgheight), dtype=np.uint8)
-    f = open(label_file)
-    lines = f.readlines()
-    image_id_str = '%.3d_' % image_id
-    for i in range(1, len(lines)):
-        line = lines[i]
-        if not image_id_str in line:
-            continue
+    if img_number not in images:
+        images[img_number] = np.zeros((400, 400), dtype=np.uint8)
 
-        tokens = line.split(',')
-        id = tokens[0]
-        prediction = int(tokens[1])
-        tokens = id.split('_')
-        i = int(tokens[1])
-        j = int(tokens[2])
+    start_col = col
+    start_row = row_num
 
-        je = min(j+w, imgwidth)
-        ie = min(i+h, imgheight)
-        if prediction == 0:
-            adata = np.zeros((w,h))
-        else:
-            adata = np.ones((w,h))
+    images[img_number][start_row:start_row + 16, start_col:start_col + 16] = label * 255
 
-        im[j:je, i:ie] = binary_to_uint8(adata)
+output_dir = './output_images'
+os.makedirs(output_dir, exist_ok=True)
 
-    Image.fromarray(im).save('prediction_' + '%.3d' % image_id + '.png')
-
-    return im
-
-for i in range(1, 5):
-    reconstruct_from_labels(i)
-
+for img_number, image in images.items():
+    output_filename = os.path.join(output_dir, f'image_{img_number}.png')
+    img = Image.fromarray(image)
+    img.save(output_filename)
+    print(f'Image {img_number} saved to {output_filename}')
