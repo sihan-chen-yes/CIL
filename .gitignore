@@ -3,3 +3,4 @@ road_segmentation
 *.csv
 tmp
 .idea/
+AutogluonModels/

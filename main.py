@@ -9,6 +9,7 @@ train_data = pd.read_csv(f'{dataset_path}/train.csv', index_col=0)
 test_data = pd.read_csv(f'{dataset_path}/test.csv', index_col=0)
 image_col = 'image'
 label_col = 'label'
+additional_data = False
 
 def path_expander(path, base_folder):
     path_l = path.split(';')
@@ -18,6 +19,27 @@ for per_col in [image_col, label_col]:
     train_data[per_col] = train_data[per_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 test_data[image_col] = test_data[image_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 
+# with addtional training data
+# print(train_data)
+# print(train_data[image_col].iloc[0])
+if additional_data:
+    all_add_train_data = []
+
+    all_add_dir = os.listdir(f'{dataset_path}/collected_new')
+    all_add_csv = [i for i in all_add_dir if '.csv' in i]
+
+
+    for name in all_add_csv:
+        add_train_data = pd.read_csv(f'{dataset_path}/collected_new/{name}', index_col=0)
+        for per_col in [image_col, label_col]:
+            add_train_data[per_col] = add_train_data[per_col].apply(lambda ele: path_expander(ele, base_folder='./'))
+
+        all_add_train_data.append(add_train_data)
+
+    # merge all additional training data
+    all_add_train_data = pd.concat(all_add_train_data, ignore_index=False)
+
+    train_data = pd.concat([train_data, all_add_train_data], ignore_index=False)
 
 # print(train_data[image_col].iloc[0])
 # print(test_data[image_col].iloc[0])
@@ -78,7 +100,8 @@ predictor = MultiModalPredictor(
     problem_type="semantic_segmentation",
     label="label",
      hyperparameters={
-            "model.sam.checkpoint_name": "facebook/sam-vit-base",
+            # "model.sam.checkpoint_name": "facebook/sam-vit-base",
+            "model.sam.checkpoint_name": "facebook/sam-vit-large",
         },
     # num_classes=1,
     path=save_path,
@@ -86,8 +109,24 @@ predictor = MultiModalPredictor(
 predictor.fit(
     train_data=train_data,
     # tuning_data=val_data,
-    time_limit=5000, # seconds
 )
+
+
+
+# first, then
+
+# predictor.fit(
+#     train_data=all_add_train_data,
+# )
+
+# # 保存模型
+# predictor.save(save_path)
+
+# # 加载已保存的模型并继续训练
+# loaded_predictor = MultiModalPredictor.load(save_path)
+# loaded_predictor.fit(
+#     train_data=train_data,
+# )
 
 """Under the hood, we use [LoRA](https://arxiv.org/abs/2106.09685) for efficient fine-tuning. Note that, without hyperparameter customization, the huge SAM serves as the default model, which requires efficient fine-tuning in many cases.
 

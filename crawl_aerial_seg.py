@@ -6,7 +6,7 @@ import os
 
 # KEY = os.getenv('GMAPS_KEY')
 # put key here
-KEY = ""
+KEY = "AIzaSyAqdvUwMHZ9AI8jrM8PGA5jKWon0QwDsB4"
 assert KEY
 
 # List of city coordinates which will be crawed
@@ -25,342 +25,342 @@ city_coordinates = [
         -69.9597,  # West
         -63.1965,  # East
     ],
-    # [
-    #     # Brasilia, Brazil
-    #     -15.9899,  # South
-    #     -15.4113,  # North
-    #     -48.2353,  # West
-    #     -47.6866,  # East
-    # ],
-    # [
-    #     # Santiago, Chile
-    #     -33.5912,  # South
-    #     -33.0153,  # North
-    #     -71.0179,  # West
-    #     -70.4477,  # East
-    # ],
-    # [
-    #     # Bogota, Colombia
-    #     4.1990,  # South
-    #     5.2003,  # North
-    #     -74.2299,  # West
-    #     -73.9862,  # East
-    # ],
-    # [
-    #     # Quito, Ecuador
-    #     -0.5475,  # South
-    #     -0.0037,  # North
-    #     -78.6115,  # West
-    #     -78.2784,  # East
-    # ],
-    # [
-    #     # Asuncion, Paraguay
-    #     -25.6086,  # South
-    #     -25.1557,  # North
-    #     -57.7542,  # West
-    #     -57.4663,  # East
-    # ],
-    # [
-    #     # Lima, Peru
-    #     -12.2404,  # South
-    #     -11.7332,  # North
-    #     -77.1825,  # West
-    #     -76.6997,  # East
-    # ],
-    # [
-    #     # Montevideo, Uruguay
-    #     -34.9730,  # South
-    #     -34.7246,  # North
-    #     -56.4152,  # West
-    #     -56.0269,  # East
-    # ],
-    # [
-    #     # Georgetown, Guyana
-    #     6.7242,  # South
-    #     6.8046,  # North
-    #     -58.2020,  # West
-    #     -58.1211,  # East
-    # ],
-    # [
-    #     # Paramaribo, Suriname
-    #     5.7700,  # South
-    #     6.0043,  # North
-    #     -55.1986,  # West
-    #     -54.9949,  # East
-    # ],
-    # [
-    #     # Caracas, Venezuela
-    #     10.0670,  # South
-    #     10.5720,  # North
-    #     -67.0311,  # West
-    #     -66.8019,  # East
-    # ],
-    # [
-    #     # Shanghai, China
-    #     30.9756,  # South
-    #     31.5149,  # North
-    #     120.8604,  # West
-    #     122.1191,  # East
-    # ],
-    # [
-    #     # Delhi, India
-    #     28.4022,  # South
-    #     28.8835,  # North
-    #     76.8381,  # West
-    #     77.3475,  # East
-    # ],
-    # [
-    #     # Karachi, Pakistan
-    #     24.7294,  # South
-    #     25.1719,  # North
-    #     66.3230,  # West
-    #     67.1829,  # East
-    # ],
-    # [
-    #     # Tehran, Iran
-    #     35.5049,  # South
-    #     35.8507,  # North
-    #     51.1839,  # West
-    #     51.6867,  # East
-    # ],
-    # [
-    #     # Riyadh, Saudi Arabia
-    #     24.4682,  # South
-    #     24.9735,  # North
-    #     46.5068,  # West
-    #     47.0142,  # East
-    # ],
-    # [
-    #     # Manila, Philippines
-    #     14.4000,  # South
-    #     14.8369,  # North
-    #     120.8588,  # West
-    #     121.0843,  # East
-    # ],
-    # [
-    #     # Jakarta, Indonesia
-    #     -6.4242,  # South
-    #     -5.8899,  # North
-    #     106.5761,  # West
-    #     107.1185,  # East
-    # ],
-    # [
-    #     # Osaka, Japan
-    #     34.4907,  # South
-    #     34.8718,  # North
-    #     135.3315,  # West
-    #     135.8400,  # East
-    # ],
-    # [
-    #     # Madrid, Spain
-    #     40.3173,  # South
-    #     40.6436,  # North
-    #     -3.8770,  # West
-    #     -3.5174,  # East
-    # ],
-    # [
-    #     # Vienna, Austria
-    #     48.1104,  # South
-    #     48.3204,  # North
-    #     16.1867,  # West
-    #     16.5775,  # East
-    # ],
-    # [
-    #     # Budapest, Hungary
-    #     47.4020,  # South
-    #     47.5715,  # North
-    #     18.9034,  # West
-    #     19.1627,  # East
-    # ],
-    # [
-    #     # Amsterdam, Netherlands
-    #     52.2893,  # South
-    #     52.4310,  # North
-    #     4.7281,  # West
-    #     5.0794,  # East
-    # ],
-    # [
-    #     # Prague, Czech Republic
-    #     49.9464,  # South
-    #     50.1765,  # North
-    #     14.2251,  # West
-    #     14.7066,  # East
-    # ],
-    # [
-    #     # Warsaw, Poland
-    #     52.0909,  # South
-    #     52.3676,  # North
-    #     20.8425,  # West
-    #     21.2710,  # East
-    # ],
-    # [
-    #     # Stockholm, Sweden
-    #     59.1959,  # South
-    #     59.4376,  # North
-    #     17.0983,  # West
-    #     18.1708,  # East
-    # ],
-    # [
-    #     # Copenhagen, Denmark
-    #     55.6174,  # South
-    #     55.7331,  # North
-    #     12.3390,  # West
-    #     12.6501,  # East
-    # ],
-    # [
-    #     # Athens, Greece
-    #     37.9413,  # South
-    #     38.0796,  # North
-    #     23.6370,  # West
-    #     23.8981,  # East
-    # ],
-    # [
-    #     # Dublin, Ireland
-    #     53.2048,  # South
-    #     53.4251,  # North
-    #     -6.3872,  # West
-    #     -6.1077,  # East
-    # ],
-    # [
-    #     # Brussels, Belgium
-    #     50.7550,  # South
-    #     50.9131,  # North
-    #     4.2376,  # West
-    #     4.4858,  # East
-    # ],
-    # [
-    #     # Oslo, Norway
-    #     59.8240,  # South
-    #     60.0027,  # North
-    #     10.6693,  # West
-    #     11.0335,  # East
-    # ],
-    # [
-    #     # Lisbon, Portugal
-    #     38.6603,  # South
-    #     38.7990,  # North
-    #     -9.2278,  # West
-    #     -9.1103,  # East
-    # ],
-    # [
-    #     # Helsinki, Finland
-    #     60.1254,  # South
-    #     60.3200,  # North
-    #     24.7829,  # West
-    #     25.2254,  # East
-    # ],
-    # [
-    #     # Reykjavik, Iceland
-    #     64.0401,  # South
-    #     64.1863,  # North
-    #     -22.0830,  # West
-    #     -21.6947,  # East
-    # ],
-    # [
-    #     # Alabama - Birmingham
-    #     33.2479,  # South
-    #     33.6786,  # North
-    #     -87.2962,  # West
-    #     -86.5795,  # East
-    # ],
-    # [
-    #     # Alaska - Anchorage
-    #     61.1008,  # South
-    #     61.4327,  # North
-    #     -150.0847,  # West
-    #     -149.5612,  # East
-    # ],
-    # [
-    #     # Arizona - Phoenix
-    #     33.2903,  # South
-    #     33.9204,  # North
-    #     -112.3246,  # West
-    #     -111.7897,  # East
-    # ],
-    # [
-    #     # Arkansas - Little Rock
-    #     34.5794,  # South
-    #     34.8743,  # North
-    #     -92.6194,  # West
-    #     -92.1253,  # East
-    # ],
-    # [
-    #     # Colorado - Denver
-    #     39.6144,  # South
-    #     39.9142,  # North
-    #     -105.1099,  # West
-    #     -104.6003,  # East
-    # ],
-    # [
-    #     # Connecticut - Bridgeport
-    #     41.1145,  # South
-    #     41.2434,  # North
-    #     -73.2387,  # West
-    #     -73.1609,  # East
-    # ],
-    # [
-    #     # Delaware - Wilmington
-    #     39.6782,  # South
-    #     39.8396,  # North
-    #     -75.6057,  # West
-    #     -75.4105,  # East
-    # ],
-    # [
-    #     # Florida - Jacksonville
-    #     30.1905,  # South
-    #     30.4770,  # North
-    #     -81.7884,  # West
-    #     -81.3961,  # East
-    # ],
-    # [
-    #     # Georgia - Atlanta
-    #     33.5024,  # South
-    #     33.8871,  # North
-    #     -84.5766,  # West
-    #     -84.2890,  # East
-    # ],
-    # [
-    #     # Hawaii - Honolulu
-    #     21.2541,  # South
-    #     21.5014,  # North
-    #     -157.9734,  # West
-    #     -157.6478,  # East
-    # ],
-    # [
-    #     # Idaho - Boise
-    #     43.4599,  # South
-    #     43.7137,  # North
-    #     -116.3446,  # West
-    #     -116.0735,  # East
-    # ],
-    # [
-    #     # Indiana - Indianapolis
-    #     39.5210,  # South
-    #     39.9142,  # North
-    #     -86.3176,  # West
-    #     -85.9750,  # East
-    # ],
-    # [
-    #     # Iowa - Des Moines
-    #     41.4734,  # South
-    #     41.6924,  # North
-    #     -93.7676,  # West
-    #     -93.5002,  # East
-    # ],
-    # [
-    #     # Kansas - Wichita
-    #     37.5721,  # South
-    #     37.8511,  # North
-    #     -97.5095,  # West
-    #     -96.7523,  # East
-    # ],
-    # [
-    #     # Kentucky - Louisville
-    #     37.9335,  # South
-    #     38.2975,  # North
-    #     -85.9314,  # West
-    #     -85.4055,  # East
-    # ],
+    [
+        # Brasilia, Brazil
+        -15.9899,  # South
+        -15.4113,  # North
+        -48.2353,  # West
+        -47.6866,  # East
+    ],
+    [
+        # Santiago, Chile
+        -33.5912,  # South
+        -33.0153,  # North
+        -71.0179,  # West
+        -70.4477,  # East
+    ],
+    [
+        # Bogota, Colombia
+        4.1990,  # South
+        5.2003,  # North
+        -74.2299,  # West
+        -73.9862,  # East
+    ],
+    [
+        # Quito, Ecuador
+        -0.5475,  # South
+        -0.0037,  # North
+        -78.6115,  # West
+        -78.2784,  # East
+    ],
+    [
+        # Asuncion, Paraguay
+        -25.6086,  # South
+        -25.1557,  # North
+        -57.7542,  # West
+        -57.4663,  # East
+    ],
+    [
+        # Lima, Peru
+        -12.2404,  # South
+        -11.7332,  # North
+        -77.1825,  # West
+        -76.6997,  # East
+    ],
+    [
+        # Montevideo, Uruguay
+        -34.9730,  # South
+        -34.7246,  # North
+        -56.4152,  # West
+        -56.0269,  # East
+    ],
+    [
+        # Georgetown, Guyana
+        6.7242,  # South
+        6.8046,  # North
+        -58.2020,  # West
+        -58.1211,  # East
+    ],
+    [
+        # Paramaribo, Suriname
+        5.7700,  # South
+        6.0043,  # North
+        -55.1986,  # West
+        -54.9949,  # East
+    ],
+    [
+        # Caracas, Venezuela
+        10.0670,  # South
+        10.5720,  # North
+        -67.0311,  # West
+        -66.8019,  # East
+    ],
+    [
+        # Shanghai, China
+        30.9756,  # South
+        31.5149,  # North
+        120.8604,  # West
+        122.1191,  # East
+    ],
+    [
+        # Delhi, India
+        28.4022,  # South
+        28.8835,  # North
+        76.8381,  # West
+        77.3475,  # East
+    ],
+    [
+        # Karachi, Pakistan
+        24.7294,  # South
+        25.1719,  # North
+        66.3230,  # West
+        67.1829,  # East
+    ],
+    [
+        # Tehran, Iran
+        35.5049,  # South
+        35.8507,  # North
+        51.1839,  # West
+        51.6867,  # East
+    ],
+    [
+        # Riyadh, Saudi Arabia
+        24.4682,  # South
+        24.9735,  # North
+        46.5068,  # West
+        47.0142,  # East
+    ],
+    [
+        # Manila, Philippines
+        14.4000,  # South
+        14.8369,  # North
+        120.8588,  # West
+        121.0843,  # East
+    ],
+    [
+        # Jakarta, Indonesia
+        -6.4242,  # South
+        -5.8899,  # North
+        106.5761,  # West
+        107.1185,  # East
+    ],
+    [
+        # Osaka, Japan
+        34.4907,  # South
+        34.8718,  # North
+        135.3315,  # West
+        135.8400,  # East
+    ],
+    [
+        # Madrid, Spain
+        40.3173,  # South
+        40.6436,  # North
+        -3.8770,  # West
+        -3.5174,  # East
+    ],
+    [
+        # Vienna, Austria
+        48.1104,  # South
+        48.3204,  # North
+        16.1867,  # West
+        16.5775,  # East
+    ],
+    [
+        # Budapest, Hungary
+        47.4020,  # South
+        47.5715,  # North
+        18.9034,  # West
+        19.1627,  # East
+    ],
+    [
+        # Amsterdam, Netherlands
+        52.2893,  # South
+        52.4310,  # North
+        4.7281,  # West
+        5.0794,  # East
+    ],
+    [
+        # Prague, Czech Republic
+        49.9464,  # South
+        50.1765,  # North
+        14.2251,  # West
+        14.7066,  # East
+    ],
+    [
+        # Warsaw, Poland
+        52.0909,  # South
+        52.3676,  # North
+        20.8425,  # West
+        21.2710,  # East
+    ],
+    [
+        # Stockholm, Sweden
+        59.1959,  # South
+        59.4376,  # North
+        17.0983,  # West
+        18.1708,  # East
+    ],
+    [
+        # Copenhagen, Denmark
+        55.6174,  # South
+        55.7331,  # North
+        12.3390,  # West
+        12.6501,  # East
+    ],
+    [
+        # Athens, Greece
+        37.9413,  # South
+        38.0796,  # North
+        23.6370,  # West
+        23.8981,  # East
+    ],
+    [
+        # Dublin, Ireland
+        53.2048,  # South
+        53.4251,  # North
+        -6.3872,  # West
+        -6.1077,  # East
+    ],
+    [
+        # Brussels, Belgium
+        50.7550,  # South
+        50.9131,  # North
+        4.2376,  # West
+        4.4858,  # East
+    ],
+    [
+        # Oslo, Norway
+        59.8240,  # South
+        60.0027,  # North
+        10.6693,  # West
+        11.0335,  # East
+    ],
+    [
+        # Lisbon, Portugal
+        38.6603,  # South
+        38.7990,  # North
+        -9.2278,  # West
+        -9.1103,  # East
+    ],
+    [
+        # Helsinki, Finland
+        60.1254,  # South
+        60.3200,  # North
+        24.7829,  # West
+        25.2254,  # East
+    ],
+    [
+        # Reykjavik, Iceland
+        64.0401,  # South
+        64.1863,  # North
+        -22.0830,  # West
+        -21.6947,  # East
+    ],
+    [
+        # Alabama - Birmingham
+        33.2479,  # South
+        33.6786,  # North
+        -87.2962,  # West
+        -86.5795,  # East
+    ],
+    [
+        # Alaska - Anchorage
+        61.1008,  # South
+        61.4327,  # North
+        -150.0847,  # West
+        -149.5612,  # East
+    ],
+    [
+        # Arizona - Phoenix
+        33.2903,  # South
+        33.9204,  # North
+        -112.3246,  # West
+        -111.7897,  # East
+    ],
+    [
+        # Arkansas - Little Rock
+        34.5794,  # South
+        34.8743,  # North
+        -92.6194,  # West
+        -92.1253,  # East
+    ],
+    [
+        # Colorado - Denver
+        39.6144,  # South
+        39.9142,  # North
+        -105.1099,  # West
+        -104.6003,  # East
+    ],
+    [
+        # Connecticut - Bridgeport
+        41.1145,  # South
+        41.2434,  # North
+        -73.2387,  # West
+        -73.1609,  # East
+    ],
+    [
+        # Delaware - Wilmington
+        39.6782,  # South
+        39.8396,  # North
+        -75.6057,  # West
+        -75.4105,  # East
+    ],
+    [
+        # Florida - Jacksonville
+        30.1905,  # South
+        30.4770,  # North
+        -81.7884,  # West
+        -81.3961,  # East
+    ],
+    [
+        # Georgia - Atlanta
+        33.5024,  # South
+        33.8871,  # North
+        -84.5766,  # West
+        -84.2890,  # East
+    ],
+    [
+        # Hawaii - Honolulu
+        21.2541,  # South
+        21.5014,  # North
+        -157.9734,  # West
+        -157.6478,  # East
+    ],
+    [
+        # Idaho - Boise
+        43.4599,  # South
+        43.7137,  # North
+        -116.3446,  # West
+        -116.0735,  # East
+    ],
+    [
+        # Indiana - Indianapolis
+        39.5210,  # South
+        39.9142,  # North
+        -86.3176,  # West
+        -85.9750,  # East
+    ],
+    [
+        # Iowa - Des Moines
+        41.4734,  # South
+        41.6924,  # North
+        -93.7676,  # West
+        -93.5002,  # East
+    ],
+    [
+        # Kansas - Wichita
+        37.5721,  # South
+        37.8511,  # North
+        -97.5095,  # West
+        -96.7523,  # East
+    ],
+    [
+        # Kentucky - Louisville
+        37.9335,  # South
+        38.2975,  # North
+        -85.9314,  # West
+        -85.4055,  # East
+    ],
     # [
     #     # Louisiana - New Orleans
     #     29.7395,  # South
@@ -801,7 +801,7 @@ city_coordinates = [
 IMAGE_RESOLUTION = 400
 CROP_PIXELS = 20
 MIN_ROAD_PERCENTAGE = 10.
-DATA_FOLDER = "./road_segmentation/collected"
+DATA_FOLDER = "./road_segmentation/collected_new"
 if not os.path.exists(DATA_FOLDER):
     os.makedirs(DATA_FOLDER)
     print(f"Directory {DATA_FOLDER} created.")
