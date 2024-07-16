@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 download_dir = './road_segmentation'
-
+load = False
 import pandas as pd
 import os
 dataset_path = download_dir
@@ -95,38 +95,53 @@ Initialize a new predictor and fit it with the train and validation data.
 
 from autogluon.multimodal import MultiModalPredictor
 import uuid
+from sklearn.model_selection import train_test_split
+# id = "168a09ff805a4fc4b0e559b675e8832a"
+# save_path = f"./tmp/{id}-automm_semantic_seg"
 save_path = f"./tmp/{uuid.uuid4().hex}-automm_semantic_seg"
-predictor = MultiModalPredictor(
-    problem_type="semantic_segmentation",
-    label="label",
-     hyperparameters={
-            # "model.sam.checkpoint_name": "facebook/sam-vit-base",
-            "model.sam.checkpoint_name": "facebook/sam-vit-large",
-        },
-    # num_classes=1,
-    path=save_path,
-)
-predictor.fit(
-    train_data=train_data,
-    # tuning_data=val_data,
-)
 
+if not load:
+    predictor = MultiModalPredictor(
+        problem_type="semantic_segmentation",
+        label="label",
+         hyperparameters={
+                "model.sam.checkpoint_name": "facebook/sam-vit-base",
+            },
+        # num_classes=1,
+        path=save_path,
+        presets="best_quality",
+    )
 
+    # hyperparameter_tune_kwargs = {
+    #     'num_trials': 20,
+    #     'scheduler': 'local',
+    #     'searcher': 'auto'
+    # }
 
-# first, then
+    # hyperparameters = {
+    #     # 'epochs': 50,
+    #     # 'batch_size': 16,
+    #     'lr': 0.001,
+    #     'early_stop_patience': 10,
+    #     'early_stop_min_delta': 0.0001,
+    #     'early_stop_baseline': None,
+    #     'early_stop_max_value': None
+    # }
 
-# predictor.fit(
-#     train_data=all_add_train_data,
-# )
+    # hold out a part of training set as validation set
+    _, val_data = train_test_split(train_data, test_size=0.2, random_state=42)
 
-# # 保存模型
-# predictor.save(save_path)
-
-# # 加载已保存的模型并继续训练
-# loaded_predictor = MultiModalPredictor.load(save_path)
-# loaded_predictor.fit(
-#     train_data=train_data,
-# )
+    predictor.fit(
+        train_data=train_data,
+        tuning_data=val_data,
+        # time_limit=3600, # seconds
+        # HPO
+        presets="best_quality",
+        # hyperparameter_tune_kwargs=hyperparameter_tune_kwargs,
+    )
+else:
+    predictor = MultiModalPredictor.load(save_path)
+    print("loaded predictor")
 
 """Under the hood, we use [LoRA](https://arxiv.org/abs/2106.09685) for efficient fine-tuning. Note that, without hyperparameter customization, the huge SAM serves as the default model, which requires efficient fine-tuning in many cases.
 
@@ -146,9 +161,11 @@ predictions = predictor.predict({'image': test_images})
 import numpy as np
 import matplotlib.pyplot as plt
 dir_path = './road_segmentation/test/groundtruth'
+
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
     print(f"Directory {dir_path} created.")
+
 
 for i in range(len(predictions)):
     binary_mask = np.array(predictions[i], dtype=np.uint8) * 255
