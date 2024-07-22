@@ -4,3 +4,4 @@ road_segmentation
 tmp
 .idea/
 AutogluonModels/
+*.pyc

@@ -105,7 +105,9 @@ if not load:
         problem_type="semantic_segmentation",
         label="label",
          hyperparameters={
-                "model.sam.checkpoint_name": "facebook/sam-vit-base",
+                # "model.sam.checkpoint_name": "facebook/sam-vit-base",
+                # "model.sam.checkpoint_name": "facebook/sam-vit-large",
+                "model.sam.checkpoint_name": "facebook/sam-vit-huge",
             },
         # num_classes=1,
         path=save_path,
@@ -130,13 +132,19 @@ if not load:
 
     # hold out a part of training set as validation set
     _, val_data = train_test_split(train_data, test_size=0.2, random_state=42)
-
+    # 设置训练配置，包括最大epoch数
+    hyperparameters = {
+        'optimization': {
+            'max_epochs': 100,
+        },
+    }
     predictor.fit(
         train_data=train_data,
         tuning_data=val_data,
         # time_limit=3600, # seconds
         # HPO
         presets="best_quality",
+        hyperparameters=hyperparameters,
         # hyperparameter_tune_kwargs=hyperparameter_tune_kwargs,
     )
 else:

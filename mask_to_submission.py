@@ -13,9 +13,12 @@ submission_file = "dummy_submission.csv"
 flags.DEFINE_string(
     "submission_filename", submission_file, "The output csv for the submission.")
 flags.DEFINE_string(
-    "base_dir", "./road_segmentation/test/smooth_gt", "The directory with the predicted masks.")
+    "base_dir", "./road_segmentation/test/groundtruth", "The directory with the predicted masks.")
+    # "base_dir", "./road_segmentation/test/smooth_gt", "The directory with the predicted masks.")
+    # "base_dir", "./road_segmentation/test/smooth_gt_0717_score92", "The directory with the predicted masks.")
+    # "base_dir", "./road_segmentation/test/groundtruth_0717_score92", "The directory with the predicted masks.")
 
-foreground_threshold = 0.25 # percentage of pixels of val 255 required to assign a foreground label to a patch
+foreground_threshold = 0.15 # percentage of pixels of val 255 required to assign a foreground label to a patch
 
 # assign a label to a patch
 def patch_to_label(patch):

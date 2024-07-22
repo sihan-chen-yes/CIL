@@ -4,7 +4,8 @@ import os
 from gen_csv import natural_sort_key
 
 # data augmentation options
-augmentation_times = 3
+# augmentation_times = 20
+augmentation_times = 50
 
 transform = A.Compose([
     A.VerticalFlip(p=0.5),
