@@ -130,6 +130,12 @@ if not load:
     #     'early_stop_max_value': None
     # }
 
+    # self ensemble
+    hyperparameters = {
+        "optimization.top_k": 3,
+        "optimization.top_k_average_method": "greedy_soup"
+    }
+
     # hold out a part of training set as validation set
     _, val_data = train_test_split(train_data, test_size=0.2, random_state=42)
     # 设置训练配置，包括最大epoch数
