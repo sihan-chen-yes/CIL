@@ -114,11 +114,11 @@ if not load:
         presets="best_quality",
     )
 
-    # hyperparameter_tune_kwargs = {
-    #     'num_trials': 20,
-    #     'scheduler': 'local',
-    #     'searcher': 'auto'
-    # }
+    hyperparameter_tune_kwargs = {
+        'num_trials': 20,
+        'scheduler': 'local',
+        'searcher': 'auto'
+    }
 
     # hyperparameters = {
     #     # 'epochs': 50,

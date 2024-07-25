@@ -13,7 +13,7 @@ if __name__ == '__main__':
     dataset_path = './road_segmentation'
 
     #gen train dataset data frame
-    train_dataset = os.path.join(dataset_path, 'aug')
+    train_dataset = os.path.join(dataset_path, 'train_original')
 
     images_folder = os.path.join(train_dataset, 'images')
     labels_folder = os.path.join(train_dataset, 'groundtruth')
