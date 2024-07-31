@@ -11,9 +11,10 @@ class Method(Enum):
     CRF = 0
     GRAPH_CUT = 1
 
-post_process_method = Method.GRAPH_CUT
+post_process_method = Method.CRF
 
-def CRF(label, gt_prob=0.6, gaussian_sdims=3, gaussian_compat=2, bilateral_sdims=5, bilateral_compat=1, bilateral_schan=5, iterations=20):
+def CRF(label, gt_prob=0.8, gaussian_sdims=3, gaussian_compat=2,
+        bilateral_sdims=3, bilateral_compat=2, bilateral_schan=5, iterations=50):
     """
     - gt_prob: Ground truth probability for the unary term.
         A higher value indicates more confidence in the initial labels
@@ -65,9 +66,9 @@ def CRF(label, gt_prob=0.6, gaussian_sdims=3, gaussian_compat=2, bilateral_sdims
 
     return smoothed_label
 
-def GRAPH_CUT(label, lambda_param=2, edge_weight=1.5):
+def GRAPH_CUT(label, lambda_param=2, edge_weight=2):
     """
-    lambda_param: penalty for change the label
+    lambda_param: penalty for changing the label
     greater means bigger penalty for changing wrongly
     tend to follow original label
     edge_weight: bigger, smoother
@@ -109,6 +110,8 @@ if __name__ == '__main__':
 
     images_folder = os.path.join(test_dataset, 'images')
     labels_folder = os.path.join(test_dataset, 'groundtruth')
+    # labels_folder = os.path.join(test_dataset, 'smooth_gt_crf')
+    # labels_folder = os.path.join(test_dataset, 'smooth_gt_gc')
 
     image_files = sorted(
         [os.path.join(images_folder, f) for f in os.listdir(images_folder) if f.endswith('.jpg') or f.endswith('.png')],
@@ -139,7 +142,7 @@ if __name__ == '__main__':
         else:
             smoothed_label = GRAPH_CUT(label)
 
-        file = label_files[i].replace('groundtruth', 'smooth_gt')
+        file = label_files[i].replace(labels_folder, SMOOTH_GT)
         smoothed_label = np.array(smoothed_label, dtype=np.uint8) * 255
         cv2.imwrite(file, cv2.cvtColor(smoothed_label, cv2.COLOR_RGB2BGR))
         print(f'{file} saved')
