@@ -25,10 +25,10 @@ put the data which is intend to augment to `./road_segmentation/train_original`
 
 augmentation data will be generate to `./road_segmentation/aug`
 
-### MRF post processing
-
+### Post processing
+change the `post_process_method` to choose CRF/Graph-cut methods to do post-processing.
 ```python
-python MRF_smooth.py
+python post_process.py
 ```
 
 after generating images in `./road_segmentation/test/groundtruth`, run the script, smoothed groundtruth will be generated in  
