@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from autogluon.multimodal import MultiModalPredictor
 
-# 数据下载目录
 download_dir = './road_segmentation'
 
 dataset_path = download_dir
@@ -24,7 +23,7 @@ for per_col in [image_col, label_col]:
     train_data[per_col] = train_data[per_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 test_data[image_col] = test_data[image_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 
-# 手动读取tmp目录下的所有checkpoint
+# manually load the checkpoints
 # checkpoint_paths = [os.path.join("./tmp", f) for f in os.listdir("./tmp") if f.endswith("-automm_semantic_seg")]
 # checkpoint_paths += [os.path.join("/mnt/sda/tmp", f) for f in os.listdir("./tmp") if f.endswith("-automm_semantic_seg-ensemble")]
 # checkpoint_paths += [os.path.join("/mnt/sda/tmp", f) for f in os.listdir("/mnt/sda/tmp") if f.endswith("-automm_semantic_seg")]
@@ -45,7 +44,6 @@ for path in checkpoint_paths:
 
 print(f"Loaded {len(predictors)} predictors")
 
-# 创建集成预测函数
 def ensemble_predict(predictors, data):
     preds = []
     for predictor in predictors:
@@ -57,7 +55,6 @@ def ensemble_predict(predictors, data):
     predict = avg_preds > 0.5
     return predict.squeeze(axis=1)
 
-# 进行预测
 test_images = test_data[image_col].tolist()
 ensemble_predictions = ensemble_predict(predictors, {'image': test_images})
 print(ensemble_predictions.shape)

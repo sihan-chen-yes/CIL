@@ -51,7 +51,7 @@ if additional_data:
     train_data = pd.concat([train_data, all_add_train_data], ignore_index=False)
 
 
-# 数据增强设置
+# data augmentation hyperparameters
 augmentation_times = 20
 
 transform = A.Compose([
@@ -63,7 +63,7 @@ transform = A.Compose([
     A.MotionBlur(blur_limit=5, p=0.3)
 ])
 
-# 原始训练数据
+# original dataset
 train_dataset = os.path.join(dataset_path, 'train_original')
 images_folder = os.path.join(train_dataset, 'images')
 labels_folder = os.path.join(train_dataset, 'groundtruth')
@@ -73,7 +73,7 @@ image_files = sorted(
 label_files = sorted(
     [os.path.join(labels_folder, f) for f in os.listdir(labels_folder) if f.endswith('.jpg') or f.endswith('.png')], key=natural_sort_key)
 
-# 生成增强数据的函数
+# generate augmentation data
 def augment_data(seed):
     np.random.seed(seed)
     cnt = len(image_files)
@@ -116,7 +116,6 @@ def augment_data(seed):
 
     return pd.DataFrame({image_col: aug_images, label_col: aug_labels})
 
-# 训练多个模型并保存 checkpoint
 # num_models = 10
 all_hyperparameters = [
     {
@@ -167,23 +166,22 @@ for i in range(len(all_hyperparameters)):
 
     del predictor
 
-# 加载保存的 checkpoint 并进行集成
 predictors = [MultiModalPredictor.load(path) for path in checkpoints]
 
 # 创建集成预测函数
 def ensemble_predict(predictors, data):
     preds = []
     for predictor in predictors:
-        # pred = predictor.predict(data)  # 使用 predict 获取预测值
-        pred = predictor.predict_proba(data, as_multiclass=False)  # 使用 predict 获取预测值
+        # pred = predictor.predict(data)  
+        pred = predictor.predict_proba(data, as_multiclass=False) # output logit
         if isinstance(pred, list):
             pred = np.array(pred)
         preds.append(pred)
-    avg_preds = np.mean(preds, axis=0)  # 对每个预测值取平均
+    avg_preds = np.mean(preds, axis=0)  # mean results ensemble
     predict = avg_preds > 0.5
-    return predict.squeeze(axis=1)  # 返回平均值作为最终预测
+    return predict.squeeze(axis=1)  
 
-# 进行预测
+# prediction
 test_images = test_data[image_col].tolist()
 ensemble_predictions = ensemble_predict(predictors, {'image': test_images})
 print(ensemble_predictions.shape)
