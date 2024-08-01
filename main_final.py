@@ -31,7 +31,7 @@ for per_col in [image_col, label_col]:
 test_data[image_col] = test_data[image_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 
 # 数据增强设置
-augmentation_times = 5
+augmentation_times = 20
 
 transform = A.Compose([
     A.VerticalFlip(p=0.5),

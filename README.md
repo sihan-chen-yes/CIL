@@ -15,6 +15,11 @@ python crawl_aerial_seg.py
 
 extra data will be put to `./road_segmentation/collect`
 
+then generate csv file for extra data
+```python
+python gen_csv_additional.py
+```
+
 ### augmentation
 
 ```python
@@ -39,7 +44,7 @@ after generating images in `./road_segmentation/test/groundtruth`, run the scrip
 
 ```python
 python gen_csv.py
-python main.py
+python main_model_ensembles.py
 python submission_to_mask.py
 ```
 

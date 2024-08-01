@@ -32,10 +32,12 @@ label_files = sorted(
             [os.path.join(labels_folder, f) for f in os.listdir(labels_folder) if f.endswith('.jpg') or f.endswith('.png')], key=natural_sort_key)
 
 
-num = len(image_files)
+# num = len(image_files)
+num = 1
+
 cnt = num
-AUG_DATA_FOLDER_IMG = "./road_segmentation/aug/images"
-AUG_DATA_FOLDER_GT = "./road_segmentation/aug/groundtruth"
+AUG_DATA_FOLDER_IMG = "./road_segmentation/aug_demo/images"
+AUG_DATA_FOLDER_GT = "./road_segmentation/aug_demo/groundtruth"
 
 if not os.path.exists(AUG_DATA_FOLDER_IMG):
     os.makedirs(AUG_DATA_FOLDER_IMG)
@@ -58,8 +60,8 @@ for i in range(augmentation_times):
         if len(transformed_mask.shape) == 3:
             transformed_mask = cv2.cvtColor(transformed_mask, cv2.COLOR_RGB2GRAY)
 
-        cv2.imwrite(f'./road_segmentation/aug/images/satimage_{cnt}.png', cv2.cvtColor(transformed_image, cv2.COLOR_RGB2BGR))
-        cv2.imwrite(f'./road_segmentation/aug/groundtruth/satimage_{cnt}.png', transformed_mask)
+        cv2.imwrite(f'./road_segmentation/aug_demo/images/satimage_{cnt}.png', cv2.cvtColor(transformed_image, cv2.COLOR_RGB2BGR))
+        cv2.imwrite(f'./road_segmentation/aug_demo/groundtruth/satimage_{cnt}.png', transformed_mask)
 
         print(f'satimage_{cnt} augmentation saved')
         cnt += 1

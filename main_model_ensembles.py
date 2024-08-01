@@ -11,7 +11,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from gen_csv import natural_sort_key
 
-# 数据下载目录
 download_dir = './road_segmentation'
 load = False
 
@@ -30,8 +29,30 @@ for per_col in [image_col, label_col]:
     train_data[per_col] = train_data[per_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 test_data[image_col] = test_data[image_col].apply(lambda ele: path_expander(ele, base_folder='./'))
 
+
+additional_data = True
+if additional_data:
+    all_add_train_data = []
+
+    all_add_dir = os.listdir(f'{dataset_path}/collected_new')
+    all_add_csv = [i for i in all_add_dir if '.csv' in i]
+
+
+    for name in all_add_csv:
+        add_train_data = pd.read_csv(f'{dataset_path}/collected_new/{name}', index_col=0)
+        for per_col in [image_col, label_col]:
+            add_train_data[per_col] = add_train_data[per_col].apply(lambda ele: path_expander(ele, base_folder='./'))
+
+        all_add_train_data.append(add_train_data)
+
+    # merge all additional training data
+    all_add_train_data = pd.concat(all_add_train_data, ignore_index=False)
+
+    train_data = pd.concat([train_data, all_add_train_data], ignore_index=False)
+
+
 # 数据增强设置
-augmentation_times = 10
+augmentation_times = 20
 
 transform = A.Compose([
     A.VerticalFlip(p=0.5),
@@ -138,7 +159,7 @@ for i in range(len(all_hyperparameters)):
         tuning_data=val_data,
         presets="best_quality",
         # time_limit=1000,
-        hyperparameters=hyperparameters,
+        # hyperparameters=hyperparameters,
     )
     
     predictor.save(save_path)
