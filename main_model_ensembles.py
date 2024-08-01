@@ -168,7 +168,6 @@ for i in range(len(all_hyperparameters)):
 
 predictors = [MultiModalPredictor.load(path) for path in checkpoints]
 
-# 创建集成预测函数
 def ensemble_predict(predictors, data):
     preds = []
     for predictor in predictors:
