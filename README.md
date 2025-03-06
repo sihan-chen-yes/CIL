@@ -1,6 +1,6 @@
 # CIL Road Segmentation Project
 
-![figures_final](./README.assets/figures_final-1741258917153-2.png)
+![figures_final](./figures_final.png)
 
 ## Setup
 - put original dataset to `./road_segmentation`
