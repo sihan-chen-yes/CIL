@@ -1,6 +1,6 @@
 # CIL Road Segmentation Project
 
-
+![figures_final](./README.assets/figures_final-1741258917153-2.png)
 
 ## Setup
 - put original dataset to `./road_segmentation`
@@ -15,22 +15,22 @@
 python crawl_aerial_seg.py
 ```
 
-extra data will be put to `./road_segmentation/collect`
+Extra data will be put to `./road_segmentation/collect`
 
-then generate csv file for extra data
+Then generate csv file for extra data
 ```python
 python gen_csv_additional.py
 ```
 
-<!-- ### augmentation
+### Augmentation
 
 ```python
 python data_aug.py
 ```
 
-put the data which is intend to augment to `./road_segmentation/train_original`
+Put the data which is intend to augment to `./road_segmentation/train_original`
 
-augmentation data will be generate to `./road_segmentation/aug` -->
+Augmentation data will be generate to `./road_segmentation/aug`
 
 ### Train
 
@@ -42,13 +42,11 @@ python submission_to_mask.py
 
 
 ### Post processing
-change the `post_process_method` to choose CRF/Graph-cut methods to do post-processing.
+Change the `post_process_method` to choose **Conditional Random Fields(CRF)**/**Graph-cut** methods to do post-processing.
 ```python
 python post_process.py
 ```
 
-after generating images in `./road_segmentation/test/groundtruth`, run the script, smoothed groundtruth will be generated in  
+After generating images in `./road_segmentation/test/groundtruth`, run the script, smoothed groundtruth will be generated in  
 
 `./road_segmentation/test/smooth_gt`
-
-
