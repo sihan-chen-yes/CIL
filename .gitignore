@@ -1,0 +1,7 @@
+road_segmentation
+*.png
+*.csv
+tmp
+.idea/
+AutogluonModels/
+*.pyc
